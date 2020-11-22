@@ -12,7 +12,7 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
-    @audits = @task.audits
+    @audits = @task.audits.merge(@list.audits)
   end
 
   # GET /tasks/new
