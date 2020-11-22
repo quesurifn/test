@@ -3,9 +3,7 @@
 require 'rails_helper'
 
 feature 'Editing a task' do
-  let!(:user) {create(:user)}
-  let!(:list) { create(:list, user: user)}
-  let!(:task) { create(:task, name: 'Test my app', :completed => false, :list => list) }
+  let!(:task) { Task.create(name: 'Test my app', completed: false) }
 
   scenario 'redirects to the tasks index page on success' do
     visit list_tasks_path
@@ -20,7 +18,7 @@ feature 'Editing a task' do
   end
 
   scenario 'displays an error when no name is provided' do
-    visit edit_list_task_path(list, task)
+    visit edit_task_path(task)
     fill_in 'Name', with: ''
     click_button 'Save'
 
@@ -28,7 +26,7 @@ feature 'Editing a task' do
   end
 
   scenario 'lets the user complete a task' do
-    visit edit_list_task_path(list, task)
+    visit edit_task_path(task)
     check 'Completed'
     click_button 'Save'
 
