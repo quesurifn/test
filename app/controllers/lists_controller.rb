@@ -15,7 +15,7 @@ class ListsController < ApplicationController
 
     # GET /lists/new
     def new
-      @task = List.new
+      @list = List.new
     end
 
     # GET /lists/1/edit
