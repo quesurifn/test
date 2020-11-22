@@ -9,7 +9,7 @@
 
 
   - @audits.each_with_index do |audit, i|
-    %h3 Audit # #{(i+1)}
+    %h3 Audit ##{(i+1)}
     - JSON.parse(audit.to_json).each do |k, v|
       %strong #{k}: #{v}
       %br
