@@ -6,7 +6,7 @@ class ListsController < ApplicationController
     # GET /lists
     # GET /lists.json
     def index
-      @lists = List.all
+      @lists = current_user.lists
     end
 
     # GET /tasks/1
@@ -15,7 +15,7 @@ class ListsController < ApplicationController
 
     # GET /lists/new
     def new
-      @list = List.new
+      @list = current_user.lists.new
     end
 
     # GET /lists/1/edit
@@ -24,16 +24,13 @@ class ListsController < ApplicationController
     # POST /lists
     # POST /lists.json
     def create
-      @list = current_user.lists.create!(list_params)
+      @list = current_user.lists.new(list_params)
 
       respond_to do |format|
         if @list.save
-          puts 'LISTS'
           format.html { redirect_to lists_path, notice: 'List was successfully created.' }
           format.json { render :show, status: :created, location: @list }
-
         else
-         puts  "NOT SAVE"
           format.html { render :new }
           format.json { render json: @list.errors, status: :unprocessable_entity }
         end
@@ -68,7 +65,7 @@ class ListsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_list
-      @list = List.find(list[:id])
+      @list = current_user.lists.find(list[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

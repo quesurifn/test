@@ -1,7 +1,9 @@
 %h1 #{current_user.email}'s Lists
 
 - @lists.each do |list|
-    =link_to list.title, list_path(list)
+    =link_to "Show #{list.title}", list_tasks_path(list)
+    =link_to 'Edit', edit_list_path(list)
+    =link_to 'Destroy', list, :method => :delete, :data => { :confirm => 'Are you sure?' }
     %br
     %br
 
