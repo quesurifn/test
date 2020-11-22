@@ -7,6 +7,15 @@
   %b Completed:
   =@task.completed
 
+
+  - @audits.each_with_index do |audit, i|
+    %h3 Audit # #{(i+1)}
+    - JSON.parse(audit.to_json).each do |k, v|
+      %strong #{k}: #{v}
+      %br
+    %hr
+
+
 =link_to 'Edit', edit_list_task_path(@list, @task)
 \|
 =link_to 'Back', list_tasks_path(@list)

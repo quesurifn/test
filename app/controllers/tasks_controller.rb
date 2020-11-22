@@ -12,7 +12,9 @@ class TasksController < ApplicationController
 
   # GET /tasks/1
   # GET /tasks/1.json
-  def show; end
+  def show
+    @audits = @task.audits
+  end
 
   # GET /tasks/new
   def new
