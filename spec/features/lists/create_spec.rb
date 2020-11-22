@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 feature 'Creating a list' do
+  let!(:user) {create(:user)}
+  before(:each) {
+    login_as(user, :scope => :user)
+  }
   scenario 'redirects to the tasks index page on success' do
     visit lists_path
     click_on 'Create New List'

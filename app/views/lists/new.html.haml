@@ -1,8 +1,5 @@
-%h1 Create New List
+%h1 Create a list
 
-= form_for @list do |f|
-    .field
-        =f.label :title
-        =f.text_field :title
-    .actions
-        =f.submit 'Save'
+=render 'form'
+
+=link_to 'Back', lists_path
