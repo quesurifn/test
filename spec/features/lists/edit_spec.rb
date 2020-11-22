@@ -2,35 +2,29 @@
 
 require 'rails_helper'
 
-feature 'Editing a task' do
-  let!(:task) { Task.create(name: 'Test my app', completed: false) }
+feature 'Editing a list' do
+  let!(:user) {create(:user)}
+  let!(:list) { create(:list, user: user)}
+  let!(:task) { create(:task, name: 'Test my app', completed: false, list: list) }
 
-  scenario 'redirects to the tasks index page on success' do
-    visit list_tasks_path
+  scenario 'redirects to the lists index page on success' do
+    visit list_tasks_path(list)
     click_on 'Edit'
-    expect(page).to have_content('Editing task')
+    expect(page).to have_content('Editing list')
 
-    fill_in 'Name', with: 'Test my app (updated)'
+    fill_in 'Title', with: 'Test my list (updated)'
     click_button 'Save'
 
     expect(page).to have_content('Tasks')
-    expect(page).to have_content('Test my app (updated)')
+    expect(page).to have_content('Test my list (updated)')
   end
 
-  scenario 'displays an error when no name is provided' do
-    visit edit_task_path(task)
-    fill_in 'Name', with: ''
+  scenario 'displays an error when no title is provided' do
+    visit edit_list_path(list, task)
+    fill_in 'Title', with: ''
     click_button 'Save'
 
-    expect(page).to have_content("Name can't be blank")
+    expect(page).to have_content("Title can't be blank")
   end
 
-  scenario 'lets the user complete a task' do
-    visit edit_task_path(task)
-    check 'Completed'
-    click_button 'Save'
-
-    visit task_path(task)
-    expect(page).to have_content('true')
-  end
 end

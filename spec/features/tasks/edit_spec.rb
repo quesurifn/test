@@ -6,9 +6,12 @@ feature 'Editing a task' do
   let!(:user) {create(:user)}
   let!(:list) { create(:list, user: user)}
   let!(:task) { create(:task, name: 'Test my app', :completed => false, :list => list) }
+  before(:each) {
+    login_as(user, :scope => :user)
+  }
 
   scenario 'redirects to the tasks index page on success' do
-    visit list_tasks_path
+    visit list_tasks_path(list)
     click_on 'Edit'
     expect(page).to have_content('Editing task')
 
@@ -32,7 +35,7 @@ feature 'Editing a task' do
     check 'Completed'
     click_button 'Save'
 
-    visit task_path(task)
+    visit list_task_path(list,task)
     expect(page).to have_content('true')
   end
 end
