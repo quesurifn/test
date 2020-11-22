@@ -24,14 +24,16 @@ class ListsController < ApplicationController
     # POST /lists
     # POST /lists.json
     def create
-      @list = List.new(task_params)
+      @list = current_user.lists.create!(list_params)
 
       respond_to do |format|
         if @list.save
+          puts 'LISTS'
           format.html { redirect_to lists_path, notice: 'List was successfully created.' }
           format.json { render :show, status: :created, location: @list }
 
         else
+         puts  "NOT SAVE"
           format.html { render :new }
           format.json { render json: @list.errors, status: :unprocessable_entity }
         end
@@ -42,8 +44,8 @@ class ListsController < ApplicationController
     # PATCH/PUT /lists/1.json
     def update
       respond_to do |format|
-        if @list.update(task_params)
-          format.html { redirect_to tasks_path, notice: 'List was successfully updated.' }
+        if @list.update(list_params)
+          format.html { redirect_to lists_path, notice: 'List was successfully updated.' }
           format.json { render :show, status: :ok, location: @list }
         else
           format.html { render :edit }
@@ -65,12 +67,12 @@ class ListsController < ApplicationController
     private
 
     # Use callbacks to share common setup or constraints between actions.
-    def set_lsit
-      @list = Task.find(list[:id])
+    def set_list
+      @list = List.find(list[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def list_params
-      params.require(:list).permit(:name)
+      params.require(:list).permit(:title)
     end
 end

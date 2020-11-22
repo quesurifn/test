@@ -1,5 +1,5 @@
 class AddUserToList < ActiveRecord::Migration[6.0]
   def change
-    add_reference :users, :list, foreign_key: true
+    add_column :lists, :user_id, :integer
   end
 end

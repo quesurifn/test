@@ -1,5 +1,5 @@
 class AddListToTask < ActiveRecord::Migration[6.0]
   def change
-    add_reference :tasks, :list, foreign_key: true
+    add_column :tasks, :list_id, :integer
   end
 end
