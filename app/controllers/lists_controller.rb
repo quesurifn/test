@@ -65,7 +65,7 @@ class ListsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_list
-      @list = current_user.lists.find(list[:id])
+      @list = current_user.lists.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
