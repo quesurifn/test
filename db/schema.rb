@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_22_211020) do
+ActiveRecord::Schema.define(version: 2020_11_22_222137) do
 
   create_table "audits", force: :cascade do |t|
     t.integer "auditable_id"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2020_11_22_211020) do
 
   create_table "tasks", force: :cascade do |t|
     t.string "name"
-    t.boolean "completed"
+    t.boolean "completed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "list_id"

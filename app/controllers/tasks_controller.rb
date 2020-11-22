@@ -3,12 +3,11 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
   before_action :set_list
+  before_action :set_task_list, only: %i[index]
 
   # GET /tasks
   # GET /tasks.json
-  def index
-    @tasks = @list.tasks.all
-  end
+  def index; end
 
   # GET /tasks/1
   # GET /tasks/1.json
@@ -78,6 +77,18 @@ class TasksController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def task_params
-    params.require(:task).permit(:name, :completed)
+    if params[:task]
+      params.require(:task).permit(:name, :completed, :list_id)
+    else
+      params.permit(:name, :completed, :list_id)
+    end
+  end
+
+  def set_task_list
+    if params[:completed]
+      @tasks = @list.tasks.where(completed: task_params[:completed])
+    else
+      @tasks = @list.tasks.all
+    end
   end
 end

@@ -1,5 +1,9 @@
 %h1 Tasks
 
+= link_to "To Do", list_tasks_path(completed: false)
+= link_to "Done", list_tasks_path(completed: true)
+= link_to "All Tasks", list_tasks_path(view_all: true)
+
 %table
   %thead
     %tr
